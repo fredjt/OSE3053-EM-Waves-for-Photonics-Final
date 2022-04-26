@@ -1,3 +1,27 @@
+////////////////////////////////////////////////////////////////////////////////////
+// MIT License                                                                    //
+//                                                                                //
+// Copyright (c) 2022 fredjt                                                      //
+//                                                                                //
+// Permission is hereby granted, free of charge, to any person obtaining a copy   //
+// of this software and associated documentation files (the "Software"), to deal  //
+// in the Software without restriction, including without limitation the rights   //
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell      //
+// copies of the Software, and to permit persons to whom the Software is          //
+// furnished to do so, subject to the following conditions:                       //
+//                                                                                //
+// The above copyright notice and this permission notice shall be included in all //
+// copies or substantial portions of the Software.                                //
+//                                                                                //
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR     //
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,       //
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE    //
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER         //
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,  //
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  //
+// SOFTWARE.                                                                      //
+////////////////////////////////////////////////////////////////////////////////////
+
 #include <cmath>
 #include <cstdio>
 #include <iostream>
@@ -13,48 +37,53 @@ int main() {
 }
 
 void hc1_1a(double t = 100, double n_m = 1.4, int l_min = 20, int l_max = 100);
-void hc1_1b(double n_m = 1.4, double z_min = -200, double z_max = 100,
-		double k0 = M_PI / 70);
+void hc1_1b(double t = 100, double n_m = 1.4, double z_min = -100,
+		double z_max = 200, int k_max = 4);
 void hc1_1c();
 
 void hc1_1() {
-	double t, n_m, e_iy0, z_min, z_max, k0;
-	int l_min;
-	int l_max;
+	char defaults;
+	cout << "Use default values? (Y/N): ";
+	cin >> defaults;
 
-	cout << "Question 1\n\nEnter membrane thickness (nm): ";
-	cin >> t;
+	if (defaults != 'Y' && defaults != 'y') {
+		double t, n_m, e_iy0, z_min, z_max;
+		int l_min, l_max, k_max;
 
-	cout << "Refractive index of membrane n_m: ";
-	cin >> n_m;
+		cout << "Question 1\n\nEnter membrane thickness (nm): ";
+		cin >> t;
 
-	cout << "Initial electric field in y-direction E_i,y,0 (V/m): ";
-	cin >> e_iy0;
+		cout << "Refractive index of membrane n_m: ";
+		cin >> n_m;
 
-	cout << "Minimum wavelength (nm): ";
-	cin >> l_min;
+		cout << "Initial electric field in y-direction E_i,y,0 (V/m): ";
+		cin >> e_iy0;
 
-	cout << "Maximum wavelength (nm): ";
-	cin >> l_max;
+		cout << "Minimum wavelength (nm): ";
+		cin >> l_min;
 
-	cout << "\nb)\n\nMinimum z position (nm): ";
-	cin >> z_min;
+		cout << "Maximum wavelength (nm): ";
+		cin >> l_max;
 
-	cout << "Maximum z position (nm): ";
-	cin >> z_max;
+		cout << "\nb)\n\nMinimum z position (nm): ";
+		cin >> z_min;
 
-	cout << "Actual wavenumber for E-field plot (1/nm): ";
-	cin >> k0;
+		cout << "Maximum z position (nm): ";
+		cin >> z_max;
 
-	hc1_1a(t, n_m, l_min, l_max);
-//	hc1_1a();
+		cout << "Maximum for E-field plot: ";
+		cin >> k_max;
 
-	hc1_1b(n_m, z_min, z_max, k0);
-//	hc1_1b();
+		hc1_1a(t, n_m, l_min, l_max);
+		hc1_1b(t, n_m, z_min, z_max, k_max);
+	} else {
+		hc1_1a();
+		hc1_1b();
+	}
 }
 
 void hc1_1a(double t, double n_m, int l_min, int l_max) {
-	cout << "\na)\n";
+	cout << "\na)\nOpen HC1_1a.m in MATLAB and execute to plot transmission\n";
 	FILE *file = fopen("data1.txt", "w"), *matlab_file = fopen("HC1_1a.m", "w");
 
 	double r_if = (1 - n_m) / (1 + n_m);
@@ -70,18 +99,30 @@ void hc1_1a(double t, double n_m, int l_min, int l_max) {
 	}
 
 	fprintf(matlab_file,
-			"clear\nclc\nfigure\ndata = importdata(\"data1.txt\");\nplot(data(:, 1), data(:, 2),'DisplayName','data')\nylim([0, 1])\ntitle(\"Transmission vs. Wavenumber\")\nylabel(\"Transmission\")\nxlabel(\"k_0 (\\mum^{-1})\")");
-	cout << "Open HC1_1.m in MATLAB and execute to plot transmission\n";
+			"clear\nclc\nfigure\ndata1 = importdata(\"data1.txt\");\nplot(data1(:, 1), data1(:, 2))\nylim([0, 1])\ntitle(\"Transmission vs. Wavenumber\")\nylabel(\"Transmission\")\nxlabel(\"k_0 (\\mum^{-1})\")");
 }
 
-void hc1_1b(double n_m, double z_min, double z_max, double k0) {
+void hc1_1b(double t, double n_m, double z_min, double z_max, int k_max) {
+	cout
+			<< "\nb)\nOpen HC1_1b.m in MATLAB and execute to plot electric field\n";
 	FILE *file = fopen("data2.txt", "w"), *matlab_file = fopen("HC1_1b.m", "w");
 
 	double t_fp = (n_m + 1) / (2 * n_m);
 	double t_fm = (n_m - 1) / (2 * n_m);
-	for (int i = z_min; i < z_max; i++) {
-		fprintf(file, "%lf %ls\n");
+	double k0 = k_max * M_PI / (n_m * t);
+	for (double i = z_min; i < 0; i++) {
+		fprintf(file, "%lf %lf 1\n", i, cos(k0 * i));
 	}
+	for (double i = 0; i < t; i++) {
+		fprintf(file, "%lf %lf 2\n", i, (t_fm + t_fp) * cos(n_m * k0 * i));
+	}
+	for (double i = t; i < z_max; i++) {
+		fprintf(file, "%lf %lf 3\n", i, cos(k0 * i - t * k0));
+	}
+
+	fprintf(matlab_file,
+			"clear\nclc\nfigure\ndata2 = importdata(\"data2.txt\");\nplot(data2(:, 1), data2(:, 2))\nxline(0)\nxline(%lf)\ntitle(\"Electric Field Amplitude at t=0\")\nylabel(\"E (V/m)\")\nxlabel(\"z (nm)\")",
+			t);
 }
 
 void hc1_1c() {
