@@ -36,6 +36,8 @@ void hc2_3_1a(double n_o = 1.658, double n_e = 1.486, double lambda0 = 400,
 void hc2_3_1b(double n_o = 1.658, double n_e = 1.486, double theta = 60);
 void hc2_3_1c(double n_o = 1.658, double n_e = 1.486, double lambda0 = 400,
 		double theta = 60, double e_0 = 10);
+void hc2_3_1d(double n_o = 1.658, double n_e = 1.486, double theta = 60,
+		double e_0 = 10);
 
 void hc2_3_1() {
 	char defaults;
@@ -64,10 +66,12 @@ void hc2_3_1() {
 		hc2_3_1a(n_o, n_e, lambda0, theta, e_0);
 		hc2_3_1b(n_o, n_e, theta);
 		hc2_3_1c(n_o, n_e, lambda0, theta, e_0);
+		hc2_3_1d(n_o, n_e, theta, e_0);
 	} else {
 		hc2_3_1a();
 		hc2_3_1b();
 		hc2_3_1c();
+		hc2_3_1d();
 	}
 }
 
@@ -155,4 +159,35 @@ void hc2_3_1c(double n_o, double n_e, double lambda0, double theta,
 		cout << "x - ";
 	cout << abs(k[1]) * pow(10, 9);
 	cout << "z) m^-1] A/m\n";
+}
+
+void hc2_3_1d(double n_o, double n_e, double theta, double e_0) {
+	double k_hat[2];
+	k_hat[0] = sin(deg2rad(theta));
+	k_hat[1] = cos(deg2rad(theta));
+	double n = n_e * n_o
+			/ sqrt(pow(k_hat[0] * n_o, 2) + pow(k_hat[1] * n_e, 2));
+	double e0[2];
+	e0[0] = e_0 * pow(n_e, 2) * k_hat[1]
+			/ sqrt(
+					pow(n_o, 4) * pow(k_hat[0], 2)
+							+ pow(n_e, 4) * pow(k_hat[1], 2));
+	e0[1] = -e_0 * pow(n_o, 2) * k_hat[0]
+			/ sqrt(
+					pow(n_o, 4) * pow(k_hat[0], 2)
+							+ pow(n_e, 4) * pow(k_hat[1], 2));
+	double h_0 = 1000 * n * (e0[0] * k_hat[1] - e0[1] * k_hat[0])
+			/ (120 * M_PI);
+	double s[2];
+	s[0] = -e0[1] * h_0 / 2;
+	s[1] = e0[0] * h_0 / 2;
+
+	cout << "\nd)\n\nPoynting vector: (";
+	cout << s[0];
+	if (s[1] > 0)
+		cout << " x_hat + ";
+	else
+		cout << " x_hat - ";
+	cout << s[1];
+	cout << " z_hat) kW/m^2\n";
 }
