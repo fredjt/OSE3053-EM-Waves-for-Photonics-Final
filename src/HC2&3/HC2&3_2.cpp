@@ -30,6 +30,7 @@
 using namespace std;
 
 void hc2_3_2a(double theta_i = 45, double n_o = 1.658, double n_e = 1.486);
+void hc2_3_2b(double theta_i = 45, double n_o = 1.658, double n_e = 1.486);
 
 void hc2_3_2() {
 	char defaults;
@@ -50,8 +51,10 @@ void hc2_3_2() {
 		cin >> n_e;
 
 		hc2_3_2a(theta_i, n_o, n_e);
+		hc2_3_2b(theta_i, n_o, n_e);
 	} else {
 		hc2_3_2a();
+		hc2_3_2b();
 	}
 }
 
@@ -63,5 +66,18 @@ void hc2_3_2a(double theta_i, double n_o, double n_e) {
 	cout << theta_o;
 	cout << "°\nExtraordinary angle of refraction theta_E: ";
 	cout << theta_e;
+	cout << "°\n";
+}
+
+void hc2_3_2b(double theta_i, double n_o, double n_e) {
+	double theta_ko = rad2deg(asin(sin(deg2rad(theta_i)) / n_o));
+	double k_pa = sin(deg2rad(theta_i));
+	double k_pe = n_e * sqrt(1 - 1 / (2 * pow(n_o, 2)));
+	double theta_ke = rad2deg(atan(k_pa / k_pe));
+
+	cout << "\na\n\nOrdinary angle of propagation theta_O: ";
+	cout << theta_ko;
+	cout << "°\nExtraordinary angle of propagation theta_E: ";
+	cout << theta_ke;
 	cout << "°\n";
 }
