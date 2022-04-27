@@ -31,4 +31,6 @@ void hc2_3_1a(double n_o, double n_e, double lambda0, double theta, double e_0);
 
 void hc2_3_1b(double n_o, double n_e, double theta);
 
+void hc2_3_1c(double n_o, double n_e, double lambda0, double theta, double e_0);
+
 #endif /* HC2_3_HC2_3_1_HPP_ */
