@@ -29,4 +29,6 @@ void hc2_3_2();
 
 void hc2_3_2a(double theta_i, double n_o, double n_e);
 
+void hc2_3_2c();
+
 #endif /* HC2_3_HC2_3_2_HPP_ */

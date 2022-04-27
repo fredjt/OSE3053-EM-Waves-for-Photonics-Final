@@ -31,6 +31,7 @@ using namespace std;
 
 void hc2_3_2a(double theta_i = 45, double n_o = 1.658, double n_e = 1.486);
 void hc2_3_2b(double theta_i = 45, double n_o = 1.658, double n_e = 1.486);
+void hc2_3_2c();
 
 void hc2_3_2() {
 	char defaults;
@@ -56,6 +57,7 @@ void hc2_3_2() {
 		hc2_3_2a();
 		hc2_3_2b();
 	}
+	hc2_3_2c();
 }
 
 void hc2_3_2a(double theta_i, double n_o, double n_e) {
@@ -64,9 +66,9 @@ void hc2_3_2a(double theta_i, double n_o, double n_e) {
 
 	cout << "\na\n\nOrdinary angle of refraction theta_O: ";
 	cout << theta_o;
-	cout << "�\nExtraordinary angle of refraction theta_E: ";
+	cout << "°\nExtraordinary angle of refraction theta_E: ";
 	cout << theta_e;
-	cout << "�\n";
+	cout << "°\n";
 }
 
 void hc2_3_2b(double theta_i, double n_o, double n_e) {
@@ -77,7 +79,20 @@ void hc2_3_2b(double theta_i, double n_o, double n_e) {
 
 	cout << "\na\n\nOrdinary angle of propagation theta_O: ";
 	cout << theta_ko;
-	cout << "�\nExtraordinary angle of propagation theta_E: ";
+	cout << "°\nExtraordinary angle of propagation theta_E: ";
 	cout << theta_ke;
-	cout << "�\n";
+	cout << "°\n";
+}
+
+void hc2_3_2c() {
+	cout << "\nc\n\nTo answer this question, we must consider the D vector, "
+			"which is perpendicular to kE.\nThe E vector is obtained by "
+			"dividing the c and c ⊥ components of D by ε0nE^2 and ε0nO^2\n"
+			"respectively. Since for calcite nO > nE, E will have, in "
+			"proportion, a larger component along\nc than D does. As a "
+			"consequence, E forms a smaller angle with ˆc than D. By the same\n"
+			"token, since the Poynting vector\nis perpendicular to E and ˆc is "
+			"perpendicular to the normal to the surface,\nthe Poynting vector "
+			"also forms a smaller angle with the normal to the surface than kE "
+			"does.\n";
 }
