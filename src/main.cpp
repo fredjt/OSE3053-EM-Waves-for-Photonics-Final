@@ -22,11 +22,25 @@
 // SOFTWARE.                                                                      //
 ////////////////////////////////////////////////////////////////////////////////////
 
+#include <cmath>
+#include <cstdio>
+#include <iostream>
+
 #include "HC1_1.hpp"
 #include "HC1_2.hpp"
+
+using namespace std;
 
 int main() {
 	hc1_1();
 	hc1_2();
+	cout << "Press any key to exit...";
+	flush(cout);
+	getchar();
+	getchar();
 	return (0);
+}
+
+double deg2rad(double degrees) {
+	return (degrees * M_PI / 180.);
 }

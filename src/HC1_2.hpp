@@ -23,3 +23,7 @@
 ////////////////////////////////////////////////////////////////////////////////////
 
 void hc1_2();
+
+void hc1_2a(double lambda0, double n_f, double theta_b);
+
+void hc1_2b(double n_f, double theta_b);
