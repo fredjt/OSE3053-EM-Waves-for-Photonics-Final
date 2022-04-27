@@ -42,7 +42,7 @@ void hc2_3_1d(double n_o = 1.658, double n_e = 1.486, double theta = 60,
 void hc2_3_1() {
 	char defaults;
 
-	cout << "\n3)\nUse default values? (Y/N): ";
+	cout << "\n1)\nUse default values? (Y/N): ";
 	cin >> defaults;
 
 	if (defaults != 'Y' && defaults != 'y') {

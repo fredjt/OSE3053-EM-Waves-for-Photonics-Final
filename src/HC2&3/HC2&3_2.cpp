@@ -22,13 +22,46 @@
 // SOFTWARE.                                                                      //
 ////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef MAIN_HPP_
-#define MAIN_HPP_
+#include <cmath>
+#include <iostream>
 
-int main();
+#include "../main.hpp"
 
-double deg2rad(double degrees);
+using namespace std;
 
-double rad2deg(double radians);
+void hc2_3_2a(double theta_i = 45, double n_o = 1.658, double n_e = 1.486);
 
-#endif /* MAIN_HPP_ */
+void hc2_3_2() {
+	char defaults;
+
+	cout << "\n2)\nUse default values? (Y/N): ";
+	cin >> defaults;
+
+	if (defaults != 'Y' && defaults != 'y') {
+		double theta_i, n_o, n_e;
+
+		cout << "Incidence angle theta_i (degrees): ";
+		cin >> theta_i;
+
+		cout << "Ordinary refractive index n_O: ";
+		cin >> n_o;
+
+		cout << "Extraordinary refractive index n_E: ";
+		cin >> n_e;
+
+		hc2_3_2a(theta_i, n_o, n_e);
+	} else {
+		hc2_3_2a();
+	}
+}
+
+void hc2_3_2a(double theta_i, double n_o, double n_e) {
+	double theta_e = rad2deg(asin(sin(deg2rad(theta_i)) / n_e));
+	double theta_o = rad2deg(asin(sin(deg2rad(theta_i)) / n_o));
+
+	cout << "\na\n\nOrdinary angle of refraction theta_O: ";
+	cout << theta_o;
+	cout << "°\nExtraordinary angle of refraction theta_E: ";
+	cout << theta_e;
+	cout << "°\n";
+}

@@ -29,6 +29,7 @@
 #include "HC1/HC1_1.hpp"
 #include "HC1/HC1_2.hpp"
 #include "HC2&3/HC2&3_1.hpp"
+#include "HC2&3/HC2&3_2.hpp"
 
 using namespace std;
 
@@ -36,6 +37,7 @@ int main() {
 	hc1_1();
 	hc1_2();
 	hc2_3_1();
+	hc2_3_2();
 	cout << "\nPress any key to exit...";
 	flush(cout);
 	getchar();
@@ -45,4 +47,8 @@ int main() {
 
 double deg2rad(double degrees) {
 	return (degrees * M_PI / 180.);
+}
+
+double rad2deg(double radians) {
+	return (radians * 180 / M_PI);
 }

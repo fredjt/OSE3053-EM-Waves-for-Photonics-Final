@@ -22,13 +22,11 @@
 // SOFTWARE.                                                                      //
 ////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef MAIN_HPP_
-#define MAIN_HPP_
+#ifndef HC2_3_HC2_3_2_HPP_
+#define HC2_3_HC2_3_2_HPP_
 
-int main();
+void hc2_3_2();
 
-double deg2rad(double degrees);
+void hc2_3_2a(double theta_i, double n_o, double n_e);
 
-double rad2deg(double radians);
-
-#endif /* MAIN_HPP_ */
+#endif /* HC2_3_HC2_3_2_HPP_ */

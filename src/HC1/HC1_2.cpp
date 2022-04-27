@@ -48,7 +48,7 @@ void hc1_2() {
 		cout << "Film refractive index n_f: ";
 		cin >> n_f;
 
-		cout << "Brewster's angle theta_B (deg): ";
+		cout << "Brewster's angle theta_B (degrees): ";
 		cin >> theta_b;
 
 		hc1_2a(lambda0, n_f, theta_b);
