@@ -1,6 +1,3 @@
-////////////////////////////////////////////////////////////////////////////////////
-// MIT License                                                                    //
-//                                                                                //
 // Copyright (c) 2022 fredjt                                                      //
 //                                                                                //
 // Permission is hereby granted, free of charge, to any person obtaining a copy   //
@@ -22,11 +19,4 @@
 // SOFTWARE.                                                                      //
 ////////////////////////////////////////////////////////////////////////////////////
 
-#include "HC1_1.hpp"
-#include "HC1_2.hpp"
-
-int main() {
-	hc1_1();
-	hc1_2();
-	return (0);
-}
+void hc1_2();

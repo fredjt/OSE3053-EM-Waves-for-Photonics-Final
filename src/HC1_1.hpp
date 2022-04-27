@@ -1,6 +1,3 @@
-////////////////////////////////////////////////////////////////////////////////////
-// MIT License                                                                    //
-//                                                                                //
 // Copyright (c) 2022 fredjt                                                      //
 //                                                                                //
 // Permission is hereby granted, free of charge, to any person obtaining a copy   //
@@ -22,11 +19,10 @@
 // SOFTWARE.                                                                      //
 ////////////////////////////////////////////////////////////////////////////////////
 
-#include "HC1_1.hpp"
-#include "HC1_2.hpp"
+void hc1_1();
 
-int main() {
-	hc1_1();
-	hc1_2();
-	return (0);
-}
+void hc1_1a(double t, double n_m, int l_min, int l_max);
+
+void hc1_1b(double t, double n_m, double z_min, double z_max, int k_max);
+
+void hc1_1c(double t, double n_m, double z_min, double z_max, int k_max);
