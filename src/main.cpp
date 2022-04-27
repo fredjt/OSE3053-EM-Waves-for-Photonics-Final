@@ -22,6 +22,7 @@
 // SOFTWARE.                                                                      //
 ////////////////////////////////////////////////////////////////////////////////////
 
+#include <algorithm>
 #include <cmath>
 #include <cstdio>
 #include <iostream>
@@ -39,7 +40,8 @@ int main() {
 void hc1_1a(double t = 100, double n_m = 1.4, int l_min = 20, int l_max = 100);
 void hc1_1b(double t = 100, double n_m = 1.4, double z_min = -100,
 		double z_max = 200, int k_max = 4);
-void hc1_1c();
+void hc1_1c(double t = 100, double n_m = 1.4, double z_min = -100,
+		double z_max = 200, int k_max = 4);
 
 void hc1_1() {
 	char defaults;
@@ -79,6 +81,7 @@ void hc1_1() {
 	} else {
 		hc1_1a();
 		hc1_1b();
+		hc1_1c();
 	}
 }
 
@@ -110,25 +113,43 @@ void hc1_1b(double t, double n_m, double z_min, double z_max, int k_max) {
 	double t_fp = (n_m + 1) / (2 * n_m);
 	double t_fm = (n_m - 1) / (2 * n_m);
 	double k0 = k_max * M_PI / (n_m * t);
-	for (double i = z_min; i < 0; i++) {
+	for (double i = z_min; i < min(z_max, 0.); i++)
 		fprintf(file, "%lf %lf 1\n", i, cos(k0 * i));
-	}
-	for (double i = 0; i < t; i++) {
-		fprintf(file, "%lf %lf 2\n", i, (t_fm + t_fp) * cos(n_m * k0 * i));
-	}
-	for (double i = t; i < z_max; i++) {
+	if (z_max > 0)
+		for (double i = 0; i < min(z_max, t); i++)
+			fprintf(file, "%lf %lf 2\n", i, (t_fm + t_fp) * cos(n_m * k0 * i));
+	for (double i = t; i < z_max; i++)
 		fprintf(file, "%lf %lf 3\n", i, cos(k0 * i - t * k0));
-	}
 
 	fprintf(matlab_file,
 			"clear\nclc\nfigure\ndata2 = importdata(\"data2.txt\");\nplot(data2(:, 1), data2(:, 2))\nxline(0)\nxline(%lf)\ntitle(\"Electric Field Amplitude at t=0\")\nylabel(\"E (V/m)\")\nxlabel(\"z (nm)\")",
 			t);
 }
 
-void hc1_1c() {
-	cout << "";
+void hc1_1c(double t, double n_m, double z_min, double z_max, int k_max) {
+	cout
+			<< "\nc)\nOpen HC1_1c.m in MATLAB and execute to plot electric field\n";
+	FILE *file = fopen("data3.txt", "w"), *matlab_file = fopen("HC1_1c.m", "w");
+
+	double k0 = (k_max + 0.5) * M_PI / (n_m * t);
+	double r = -(pow(n_m, 2) - 1) / (pow(n_m, 2) + 1);
+	double t_s_i = -1 / (2 * (pow(n_m, 2) + 1));
+	double t_fp = (r - t_s_i + 1) / 2;
+	double t_fm = (r + t_s_i + 1) / 2;
+
+	for (double i = z_min; i < min(z_max, 0.); i++)
+		fprintf(file, "%lf %lf 1\n", i, (r + 1) * cos(k0 * i));
+	if (z_max > 0)
+		for (double i = 0; i < t; i++)
+			fprintf(file, "%lf %lf 2\n", i, (t_fm + t_fp) * cos(n_m * k0 * i));
+	for (double i = t; i < z_max; i++)
+		fprintf(file, "%lf %lf 3\n", i, (-sin(k0 * i - t * k0)) / n_m);
+
+	fprintf(matlab_file,
+			"clear\nclc\nfigure\ndata3 = importdata(\"data3.txt\");\nplot(data3(:, 1), data3(:, 2))\nxline(0)\nxline(%lf)\ntitle(\"Electric Field Amplitude at t=0\")\nylabel(\"E (V/m)\")\nxlabel(\"z (nm)\")",
+			t);
 }
 
 void hc1_2() {
-	cout << "";
+	cout << "\n2)\n";
 }
