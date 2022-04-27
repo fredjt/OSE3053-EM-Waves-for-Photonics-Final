@@ -31,6 +31,7 @@ using namespace std;
 
 void hc1_2a(double lambda0 = 600, double n_f = 2.0, double theta_b = 20);
 void hc1_2b(double n_f = 2.0, double theta_b = 20);
+void hc1_2c();
 
 void hc1_2() {
 	char defaults;
@@ -56,6 +57,7 @@ void hc1_2() {
 		hc1_2a();
 		hc1_2b();
 	}
+	hc1_2c();
 }
 
 void hc1_2a(double lambda0, double n_f, double theta_b) {
@@ -74,4 +76,19 @@ void hc1_2b(double n_f, double theta_b) {
 	cout << "\nb>\n\nSubstrate refractive index: ";
 	cout << n_s;
 	cout << "\n";
+}
+
+void hc1_2c() {
+	cout << "\nc)\n\nSince at this wavelength and angle of incidence the TE "
+			"component of the impinging\nlight is entirely transmitted, "
+			"the reflected beam has a pure TM polarization, which\n"
+			"means that it is linearly polarized. The transmitted "
+			"component, on the other hand,\ncomprises a TE and a TM "
+			"component, in different proportions. The transmitted light,"
+			"\ntherefore, cannot possibly be circularly polarized. "
+			"In principle, if the TE and the TM\ncomponent happened to "
+			"go out of phase exactly by 90°\n, in principle the "
+			"transmitted\nlight could be linearly polarized. However, "
+			"this would be a mere coincidence. In\ngeneral, therefore, "
+			"the transmitted light will be elliptically polarized.\n";
 }

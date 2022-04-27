@@ -34,7 +34,7 @@ using namespace std;
 int main() {
 	hc1_1();
 	hc1_2();
-	cout << "Press any key to exit...";
+	cout << "\nPress any key to exit...";
 	flush(cout);
 	getchar();
 	getchar();
