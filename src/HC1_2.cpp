@@ -19,11 +19,41 @@
 // SOFTWARE.                                                                      //
 ////////////////////////////////////////////////////////////////////////////////////
 
+#include <cmath>
 #include <iostream>
 
 using namespace std;
 
+void hc1_2a(double lambda0 = 600, double n_f = 2.0, double theta_b = 20);
+
 void hc1_2() {
-	cout << "\n2)\n";
-	double lambda0;
+	char defaults;
+
+	cout << "2)\nUse default values? (Y/N): ";
+	cin >> defaults;
+
+	if (defaults != 'Y' && defaults != 'y') {
+		double lambda0, n_f, theta_b;
+
+		cout << "Wavelength (nm): ";
+		cin >> lambda0;
+
+		cout << "Film refractive index n_f: ";
+		cin >> n_f;
+
+		cout << "Brewster's angle theta_B (deg): ";
+		cin >> theta_b;
+
+		hc1_2a(lambda0, n_f, theta_b);
+	} else {
+		hc1_2a();
+	}
+}
+
+void hc1_2a(double lambda0, double n_f, double theta_b) {
+	double d = lambda0
+			/ (4 * sqrt(pow(n_f, 2) - pow(sin(theta_b * M_PI / 180), 2)));
+	cout << "\na)\n\nMinimum film thickness for 100% transmission: ";
+	cout << d;
+	cout << " nm\n";
 }

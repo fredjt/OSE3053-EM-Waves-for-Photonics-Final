@@ -44,7 +44,7 @@ void hc1_1() {
 		double t, n_m, e_iy0, z_min, z_max;
 		int l_min, l_max, k_max;
 
-		cout << "Question 1\n\nEnter membrane thickness (nm): ";
+		cout << "Question 1\n\nMembrane thickness (nm): ";
 		cin >> t;
 
 		cout << "Refractive index of membrane n_m: ";
