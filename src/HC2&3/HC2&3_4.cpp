@@ -23,34 +23,55 @@
 ////////////////////////////////////////////////////////////////////////////////////
 
 #include <cmath>
-#include <cstdio>
 #include <iostream>
-
-#include "HC1/HC1_1.hpp"
-#include "HC1/HC1_2.hpp"
-#include "HC2&3/HC2&3_1.hpp"
-#include "HC2&3/HC2&3_2.hpp"
-#include "HC2&3/HC2&3_4.hpp"
 
 using namespace std;
 
-int main() {
-	hc1_1();
-	hc1_2();
-	hc2_3_1();
-	hc2_3_2();
-	hc2_3_4();
-	cout << "\nPress any key to exit...";
-	flush(cout);
-	getchar();
-	getchar();
-	return (0);
+void hc2_3_4a(double lambda0 = 600, double d = 5, double n = 1.33);
+void hc2_3_4b(double lambda0 = 600, double d = 5, double n = 1.33);
+
+void hc2_3_4() {
+	char defaults;
+
+	cout << "\n4)\nUse default values? (Y/N): ";
+	cin >> defaults;
+
+	if (defaults != 'Y' && defaults != 'y') {
+		double lambda0, d, n;
+
+		cout << "Wavelength lambda_0 (nm): ";
+		cin >> lambda0;
+
+		cout << "Waveguide width d (µm): ";
+		cin >> d;
+
+		cout << "Waveguide refractive index n: ";
+		cin >> n;
+
+		hc2_3_4a(lambda0, d, n);
+		hc2_3_4b(lambda0, d, n);
+	} else {
+		hc2_3_4a();
+		hc2_3_4b();
+	}
 }
 
-double deg2rad(double degrees) {
-	return (degrees * M_PI / 180.);
+void hc2_3_4a(double lambda0, double d, double n) {
+	int m = 2000 * n * d / lambda0;
+
+	cout << "\na)\n\nNumber of TE and TM modes m: ";
+	cout << m;
+	cout << "\n";
 }
 
-double rad2deg(double radians) {
-	return (radians * 180 / M_PI);
+void hc2_3_4b(double lambda0, double d, double n) {
+	int m = 2000 * n * d / lambda0;
+	double v_g1 = 1 / n * sqrt(1 - pow(lambda0 / (2000 * n * d), 2));
+	double v_g22 = 1 / n * sqrt(1 - pow(m * lambda0 / (2000 * n * d), 2));
+
+	cout << "\nb)\n\nFastest group velocity: ";
+	cout << v_g1;
+	cout << "c\nSlowest group velocity: ";
+	cout << v_g22;
+	cout << "c\n";
 }

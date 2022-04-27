@@ -22,35 +22,13 @@
 // SOFTWARE.                                                                      //
 ////////////////////////////////////////////////////////////////////////////////////
 
-#include <cmath>
-#include <cstdio>
-#include <iostream>
+#ifndef HC2_3_HC2_3_4_HPP_
+#define HC2_3_HC2_3_4_HPP_
 
-#include "HC1/HC1_1.hpp"
-#include "HC1/HC1_2.hpp"
-#include "HC2&3/HC2&3_1.hpp"
-#include "HC2&3/HC2&3_2.hpp"
-#include "HC2&3/HC2&3_4.hpp"
+void hc2_3_4();
 
-using namespace std;
+void hc2_3_4a(double lambda0, double d, double n);
 
-int main() {
-	hc1_1();
-	hc1_2();
-	hc2_3_1();
-	hc2_3_2();
-	hc2_3_4();
-	cout << "\nPress any key to exit...";
-	flush(cout);
-	getchar();
-	getchar();
-	return (0);
-}
+void hc2_3_4a(double lambda0, double d, double n);
 
-double deg2rad(double degrees) {
-	return (degrees * M_PI / 180.);
-}
-
-double rad2deg(double radians) {
-	return (radians * 180 / M_PI);
-}
+#endif /* HC2_3_HC2_3_4_HPP_ */
