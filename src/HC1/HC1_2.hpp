@@ -22,8 +22,13 @@
 // SOFTWARE.                                                                      //
 ////////////////////////////////////////////////////////////////////////////////////
 
+#ifndef HC1_HC1_2_HPP_
+#define HC1_HC1_2_HPP_
+
 void hc1_2();
 
 void hc1_2a(double lambda0, double n_f, double theta_b);
 
 void hc1_2b(double n_f, double theta_b);
+
+#endif /* HC1_HC1_2_HPP_ */

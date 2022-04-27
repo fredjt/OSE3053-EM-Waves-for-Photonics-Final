@@ -29,66 +29,88 @@
 
 using namespace std;
 
-void hc1_2a(double lambda0 = 600, double n_f = 2.0, double theta_b = 20);
-void hc1_2b(double n_f = 2.0, double theta_b = 20);
-void hc1_2c();
+void hc2_3_1a(double n_o = 1.658, double n_e = 1.486, double lambda0 = 400,
+		double theta = 60, double e_0 = 10);
+void hc2_3_1b(double n_o = 1.658, double n_e = 1.486, double theta = 60);
 
-void hc1_2() {
+void hc2_3_1() {
 	char defaults;
 
-	cout << "\n2)\nUse default values? (Y/N): ";
+	cout << "\n3)\nUse default values? (Y/N): ";
 	cin >> defaults;
 
 	if (defaults != 'Y' && defaults != 'y') {
-		double lambda0, n_f, theta_b;
+		double n_o, n_e, lambda0, theta, e_0;
 
-		cout << "Wavelength (nm): ";
+		cout << "Ordinary refractive index n_O: ";
+		cin >> n_o;
+
+		cout << "Extraordinary refractive index n_E: ";
+		cin >> n_e;
+
+		cout << "Wavelength lambda_0 (nm): ";
 		cin >> lambda0;
 
-		cout << "Film refractive index n_f: ";
-		cin >> n_f;
+		cout << "Angle of wavevector theta (degrees): ";
+		cin >> theta;
 
-		cout << "Brewster's angle theta_B (deg): ";
-		cin >> theta_b;
+		cout << "Amplitude of electric field E_0 (kV / m): ";
+		cin >> e_0;
 
-		hc1_2a(lambda0, n_f, theta_b);
-		hc1_2b(n_f, theta_b);
+		hc2_3_1a(n_o, n_e, lambda0, theta, e_0);
+		hc2_3_1b(n_o, n_e, theta);
 	} else {
-		hc1_2a();
-		hc1_2b();
+		hc2_3_1a();
+		hc2_3_1b();
 	}
-	hc1_2c();
 }
 
-void hc1_2a(double lambda0, double n_f, double theta_b) {
-	double d = lambda0
-			/ (4 * sqrt(pow(n_f, 2) - pow(sin(deg2rad(theta_b)), 2)));
-	cout << "\na)\n\nMinimum film thickness for 100% transmission: ";
-	cout << d;
-	cout << " nm\n";
+void hc2_3_1a(double n_o, double n_e, double lambda0, double theta,
+		double e_0) {
+	double k_hat[2];
+	k_hat[0] = sin(deg2rad(theta));
+	k_hat[1] = cos(deg2rad(theta));
+	double n = n_e * n_o
+			/ sqrt(pow(k_hat[0] * n_o, 2) + pow(k_hat[1] * n_e, 2));
+	double k0 = 2 * M_PI / lambda0;
+	double k[2];
+	k[0] = k0 * n * k_hat[0];
+	k[1] = k0 * n * k_hat[1];
+	double e0[2];
+	e0[0] = e_0 * pow(n_e, 2) * k_hat[1]
+			/ sqrt(
+					pow(n_o, 4) * pow(k_hat[0], 2)
+							+ pow(n_e, 4) * pow(k_hat[1], 2));
+	e0[1] = -e_0 * pow(n_o, 2) * k_hat[0]
+			/ sqrt(
+					pow(n_o, 4) * pow(k_hat[0], 2)
+							+ pow(n_e, 4) * pow(k_hat[1], 2));
+
+	// Solutions have 10^-7 on the k-vector instead of 10^7
+	cout << "\na)\n\nComplex harmonic electric field: E(r) = (";
+	cout << e0[0];
+	if (e0[1] > 0)
+		cout << " x_hat + ";
+	else
+		cout << " x_hat - ";
+	cout << abs(e0[1]);
+	cout << " z_hat) * exp[(";
+	cout << k[0] * pow(10, 9);
+	if (k[1] > 0)
+		cout << "x + ";
+	else
+		cout << "x - ";
+	cout << abs(k[1]) * pow(10, 9);
+	cout << "z) m^-1] kV/m\n";
 }
 
-void hc1_2b(double n_f, double theta_b) {
-	// Homework has wrong answer for this value
-	double k_sp = (pow(n_f, 2) - pow(sin(deg2rad(theta_b)), 2))
-			/ cos(deg2rad(theta_b));
-	double n_s = sqrt(pow(k_sp, 2) + pow(sin(deg2rad(theta_b)), 2));
-	cout << "\nb>\n\nSubstrate refractive index: ";
-	cout << n_s;
+void hc2_3_1b(double n_o, double n_e, double theta) {
+	double k_hat[2];
+	k_hat[0] = sin(deg2rad(theta));
+	k_hat[1] = cos(deg2rad(theta));
+	double n = n_e * n_o
+			/ sqrt(pow(k_hat[0] * n_o, 2) + pow(k_hat[1] * n_e, 2));
+	cout << "\nb)\n\nEffective refractive index: ";
+	cout << n;
 	cout << "\n";
-}
-
-void hc1_2c() {
-	cout << "\nc)\n\nSince at this wavelength and angle of incidence the TE "
-			"component of the impinging\nlight is entirely transmitted, "
-			"the reflected beam has a pure TM polarization, which\n"
-			"means that it is linearly polarized. The transmitted "
-			"component, on the other hand,\ncomprises a TE and a TM "
-			"component, in different proportions. The transmitted light,"
-			"\ntherefore, cannot possibly be circularly polarized. "
-			"In principle, if the TE and the TM\ncomponent happened to "
-			"go out of phase exactly by 90°\n, in principle the "
-			"transmitted\nlight could be linearly polarized. However, "
-			"this would be a mere coincidence. In\ngeneral, therefore, "
-			"the transmitted light will be elliptically polarized.\n";
 }

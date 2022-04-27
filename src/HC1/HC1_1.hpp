@@ -1,3 +1,6 @@
+////////////////////////////////////////////////////////////////////////////////////
+// MIT License                                                                    //
+//                                                                                //
 // Copyright (c) 2022 fredjt                                                      //
 //                                                                                //
 // Permission is hereby granted, free of charge, to any person obtaining a copy   //
@@ -19,6 +22,9 @@
 // SOFTWARE.                                                                      //
 ////////////////////////////////////////////////////////////////////////////////////
 
+#ifndef HC1_HC1_1_HPP_
+#define HC1_HC1_1_HPP_
+
 void hc1_1();
 
 void hc1_1a(double t, double n_m, int l_min, int l_max);
@@ -26,3 +32,5 @@ void hc1_1a(double t, double n_m, int l_min, int l_max);
 void hc1_1b(double t, double n_m, double z_min, double z_max, int k_max);
 
 void hc1_1c(double t, double n_m, double z_min, double z_max, int k_max);
+
+#endif /* HC1_HC1_1_HPP_ */

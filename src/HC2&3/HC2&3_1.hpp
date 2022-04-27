@@ -22,9 +22,13 @@
 // SOFTWARE.                                                                      //
 ////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef MAIN_HPP_
-#define MAIN_HPP_
+#ifndef HC2_3_HC2_3_1_HPP_
+#define HC2_3_HC2_3_1_HPP_
 
-double deg2rad(double degrees);
+void hc2_3_1();
 
-#endif /* MAIN_HPP_ */
+void hc2_3_1a(double n_o, double n_e, double lambda0, double theta, double e_0);
+
+void hc2_3_1b(double n_o, double n_e, double theta);
+
+#endif /* HC2_3_HC2_3_1_HPP_ */
