@@ -25,7 +25,7 @@
 #include <cmath>
 #include <iostream>
 
-#include "main.hpp"
+#include "../main.hpp"
 
 using namespace std;
 

@@ -26,8 +26,8 @@
 #include <cstdio>
 #include <iostream>
 
-#include "HC1_1.hpp"
-#include "HC1_2.hpp"
+#include "HC1/HC1_1.hpp"
+#include "HC1/HC1_2.hpp"
 
 using namespace std;
 
